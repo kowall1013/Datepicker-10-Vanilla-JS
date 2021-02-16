@@ -175,11 +175,19 @@ input::placeholder {
   text-align: center;
 }
 
+.datepicker__monthIndicator{
+  text-align: center;
+}
+
 /*******************
  * Date grid
  *******************/
 .datepicker__date-grid {
   margin-top: 0.5em;
+}
+
+.datepicker__date-grid button:first-child {
+  grid-column: 6;
 }
 
 .datepicker__date-grid button {
