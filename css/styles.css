@@ -110,7 +110,7 @@ input::placeholder {
 /*******************
  * Datepicker
  *******************/
-.datepicker {
+ .datepicker {
   --horizontal-padding: 1.5em;
   --border-size: 1px;
   position: absolute;
@@ -187,7 +187,7 @@ input::placeholder {
 }
 
 .datepicker__date-grid button:first-child {
-  grid-column: 6;
+  grid-column: 2;
 }
 
 .datepicker__date-grid button {
