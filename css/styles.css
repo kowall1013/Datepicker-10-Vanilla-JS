@@ -186,10 +186,6 @@ input::placeholder {
   margin-top: 0.5em;
 }
 
-.datepicker__date-grid button:first-child {
-  grid-column: 2;
-}
-
 .datepicker__date-grid button {
   position: relative;
   border: 0;
@@ -199,6 +195,10 @@ input::placeholder {
   border-radius: 50%;
   background-color: transparent;
   color: var(--blue-grey-600);
+}
+
+.datepicker__date-grid button:first-child {
+  grid-column: var(--firstDayOfMonth);
 }
 
 .datepicker__date-grid button[start-date] {
