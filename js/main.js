@@ -65,7 +65,7 @@ const createDatepicker = date => {
   const calendar = `
     <div class="datepicker__calendar">
       <div class="datepicker__monthIndicator">
-              <time datetime="${year}-${dateTimeMonth}"> ${monthName} ${year} </time>
+              <time datetime="${year}-${dateTimeMonth}">${monthName} ${year}</time>
       </div>
        <div class="datepicker__day-of-week">
           <div>Su</div>
@@ -86,6 +86,33 @@ const createDatepicker = date => {
     ${previousNextMonthButtons}
     ${calendar}
   `
+  const previousNextButton = datepicker.querySelector('.datepicker__buttons')
+
+  previousNextButton.addEventListener('click', event => {
+    const datetimeToDate = dateTime => {
+
+      const [year, month] = dateTime.split('-')
+      console.log(year);
+      console.log(month);
+      
+      
+
+
+
+      return new Date(year, month - 1)
+    }
+    if (!event.target.matches('button')) return
+
+    if (event.target.matches('.datepicker__previous')) {
+    }
+
+    if (event.target.matches('.datepicker__next')) {
+      const timeEl = datepicker.querySelector('.datepicker__monthIndicator').firstElementChild
+      const dateTime = timeEl.getAttribute('datetime')
+      const currentDate = datetimeToDate(dateTime)
+
+    }
+  })
 
   return datepicker
 }
