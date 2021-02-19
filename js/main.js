@@ -38,6 +38,12 @@ const createDateGridHTML = date => {
   return dategrid.innerHTML
 }
 
+const datetimeToDate = dateTime => {
+  const [year, month] = dateTime.split("-").map(num => parseInt(num))
+
+  return new Date(year, month - 1)
+}
+
 const createDatepicker = date => {
   const datepicker = document.createElement('div')
   datepicker.classList.add('datepicker')
@@ -86,32 +92,42 @@ const createDatepicker = date => {
     ${previousNextMonthButtons}
     ${calendar}
   `
+
+  const getDateFromYearMonthIndicator = _ => {
+    const time = datepicker.querySelector('.datepicker__monthIndicator').firstElementChild
+    const dateTime = time.getAttribute('datetime')
+
+    return datetimeToDate(dateTime)
+  }
+
+  const updateYearMonthIndicatorTimeElement = date => {
+    const time = datepicker.querySelector('.datepicker__monthIndicator').firstElementChild
+
+    const year = date.getFullYear()
+    const targetMonth = date.getMonth()
+    const monthName = monthsInAYear[targetMonth]
+    const dateTimeMonth = (targetMonth + 1).toString().padStart(2, '0')
+
+    time.textContent = `${monthName} ${year}`
+    time.setAttribute('datetime', `${year}-${dateTimeMonth}`)
+  }
+
   const previousNextButton = datepicker.querySelector('.datepicker__buttons')
 
   previousNextButton.addEventListener('click', event => {
-    const datetimeToDate = dateTime => {
-
-      const [year, month] = dateTime.split('-')
-      console.log(year);
-      console.log(month);
-      
-      
-
-
-
-      return new Date(year, month - 1)
-    }
     if (!event.target.matches('button')) return
+    const currentDate = getDateFromYearMonthIndicator()
+    const month = currentDate.getMonth()
 
-    if (event.target.matches('.datepicker__previous')) {
-    }
+    const targetDate = event.target.matches('.datepicker__previous')
+      ? new Date(year, month - 1)
+      : new Date(year, month + 1)
 
-    if (event.target.matches('.datepicker__next')) {
-      const timeEl = datepicker.querySelector('.datepicker__monthIndicator').firstElementChild
-      const dateTime = timeEl.getAttribute('datetime')
-      const currentDate = datetimeToDate(dateTime)
+    updateYearMonthIndicatorTimeElement(targetDate)
 
-    }
+    const dategrid = document.querySelector('.datepicker__date-grid')
+    dategrid.innerHTML = createDateGridHTML(targetDate)
+
   })
 
   return datepicker
