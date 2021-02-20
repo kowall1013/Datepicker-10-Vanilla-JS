@@ -114,7 +114,6 @@ input::placeholder {
   --horizontal-padding: 1.5em;
   --border-size: 1px;
   position: absolute;
-  margin-top: 1em;
   padding: var(--horizontal-padding);
   border-radius: 8px;
   background: white;
