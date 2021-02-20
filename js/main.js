@@ -53,11 +53,22 @@ const toTwoDigitsString = date => {
 const createDatepicker = (date, input) => {
   const datepicker = document.createElement('div')
   datepicker.classList.add('datepicker')
+  datepicker.setAttribute('hidden',true)
 
   const year = date.getFullYear()
   const month = date.getMonth()
   const monthName = monthsInAYear[month]
   const dateTimeMonth = (month + 1).toString().padStart(2, '0')
+
+  input.addEventListener('click', event => {
+    datepicker.removeAttribute('hidden')
+  })
+
+  document.addEventListener('click', event => {
+    if(event.target.closest('.datepicker')) return
+    if (event.target.closest('input') === input) return
+    datepicker.setAttribute('hidden', true)
+  })
 
   const previousNextMonthButtons = `
     <div class="datepicker__buttons">
@@ -101,11 +112,7 @@ const createDatepicker = (date, input) => {
   const inputRect = input.getBoundingClientRect()
   const oneRem = parseFloat(getComputedStyle(document.body)['font-size'])
   datepicker.style.left = `${inputRect.left}px`
-  datepicker.style.top = `${inputRect.bottom + oneRem}px`
-
-  
-  
-
+  datepicker.style.top = `${inputRect.bottom + oneRem }px`
 
   const getDateFromYearMonthIndicator = _ => {
     const time = datepicker.querySelector('.datepicker__monthIndicator').firstElementChild
@@ -171,14 +178,6 @@ const createDatepicker = (date, input) => {
 }
 
 document.body.appendChild(createDatepicker(date, input))
-
-
-
-
-
-
-
-
 
 
 
